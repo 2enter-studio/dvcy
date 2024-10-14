@@ -1,0 +1,14 @@
+{
+	"docs": {
+		"port": 5173
+	},
+	"web": {
+		"port": 5174
+	},
+	"@repo/ui": {
+		"port": 5176
+	},
+	"exhibit": {
+		"port": 5177
+	}
+}
