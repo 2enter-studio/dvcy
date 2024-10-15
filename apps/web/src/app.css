@@ -1,0 +1,29 @@
+.toolbar-tool-row {
+	@apply bg-white !important;
+}
+
+.toolbar-edgemenu {
+	@apply bg-primary !important;
+}
+
+.toolbar-internalWidgetId--hand-tool-widget,
+.toolbar-internalWidgetId--selection-tool-widget,
+.toolbar-internalWidgetId--document-properties-widget {
+	@apply hidden !important;
+}
+
+.choice-button {
+	@apply rounded-md;
+}
+
+.checked {
+	@apply bg-secondary !important;
+}
+
+input[type='range'] {
+	@apply range range-primary range-lg !important;
+}
+
+.pickColorInstructions {
+	@apply bg-info px-2 text-sm text-info-content ml-10 !important;
+}
