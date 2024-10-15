@@ -15,7 +15,6 @@ const adapters = {
 /** @type {import('@sveltejs/kit').Config} */
 function makeConfig(interpreter = 'bun') {
 	const adapter = adapters[interpreter];
-	console.log(`Using adapter: ${interpreter}`);
 
 	return {
 		preprocess: [vitePreprocess()],
