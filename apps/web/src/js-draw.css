@@ -1,0 +1,33 @@
+* {
+	@apply touch-pan-x touch-pan-y;
+}
+
+div[role='toolbar'] {
+	@apply fixed bottom-32 !important;
+}
+
+.toolbar-edgemenu {
+	@apply relative bg-secondary !important;
+}
+
+.toolbar-internalWidgetId--hand-tool-widget,
+/*.toolbar-internalWidgetId--selection-tool-widget,*/
+.toolbar-internalWidgetId--document-properties-widget {
+	@apply hidden !important;
+}
+
+.choice-button {
+	@apply rounded-md;
+}
+
+.checked {
+	@apply bg-secondary !important;
+}
+
+input[type='range'] {
+	@apply range range-primary range-lg !important;
+}
+
+.pickColorInstructions {
+	@apply ml-10 bg-info px-2 text-sm text-info-content !important;
+}

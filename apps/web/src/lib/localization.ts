@@ -1,8 +1,6 @@
 import { defaultEditorLocalization } from 'js-draw';
 import type { EditorLocalization } from 'js-draw';
 
-console.log(JSON.stringify(defaultEditorLocalization, null, 2));
-
 const zh: EditorLocalization = {
 	...defaultEditorLocalization,
 	help: '幫助',

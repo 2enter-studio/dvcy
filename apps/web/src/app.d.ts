@@ -8,6 +8,7 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+	type SignType = 0 | 1 | 2 | 3 | 4;
 }
 
 export {};

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import '@repo/config/app.css';
 	import '../app.css';
+	import '../js-draw.css';
+
 	import { PUBLIC_FA_KIT_URL } from '$env/static/public';
 
 	let { children, data } = $props();
