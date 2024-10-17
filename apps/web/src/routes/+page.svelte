@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 	import { Editor, Color4, PenTool, Vec2 } from 'js-draw';
 	import { zh } from '@/localization';
+	import type { SignType } from '@/config';
 
 	const CANVAS_SIZE = 500;
 	const CANVAS_BORDER_SIZE = 5;
