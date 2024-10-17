@@ -4,34 +4,29 @@
 	import eruda from 'eruda';
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
-	import { Editor, Color4, PenTool, Vec2 } from 'js-draw';
+	import { Editor, Color4, PenTool, EraserTool, Vec2, EraserMode } from 'js-draw';
 	import { zh } from '@/localization';
 	import type { SignType } from '@/config';
 
 	const CANVAS_SIZE = 500;
-	const CANVAS_BORDER_SIZE = 5;
 
 	let dom = $state<HTMLDivElement>();
 	let editor = $state<Editor>();
-	let svgUrl = $state<string | null>(null);
+
 	let signImgTransform = $state({ x: 0, y: 0, size: 0, rotation: 0 });
+	let svgUrl = $state<string | null>(null);
+
 	let signType = $state<SignType>(0);
 
-	function makeIcon(className: string) {
-		const icon = document.createElement('i');
-		icon.className = className;
-		return icon;
-	}
-
-	function getSVGURL() {
+	function updateSvgUrl() {
 		if (!editor) return '';
 		const serializer = new XMLSerializer();
 		let source = serializer.serializeToString(editor.toSVG());
 
-		if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+		if (!source.match(/^<svg[^>]+xmlns="http:\/\/www\.w3\.org\/2000\/svg"/)) {
 			source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
 		}
-		if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+		if (!source.match(/^<svg[^>]+"http:\/\/www\.w3\.org\/1999\/xlink"/)) {
 			source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
 		}
 
@@ -39,22 +34,10 @@
 		source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
 
 		//convert svg source to URI data scheme.
-		return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
+		svgUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
 	}
 
-	function init() {}
-
-	function updateSignMask() {
-		if (!editor) return;
-		const { viewport } = editor;
-		const { x, y } = viewport.canvasToScreen(Vec2.of(0, 0));
-		const size = CANVAS_SIZE / viewport.getSizeOfPixelOnCanvas();
-		const rotation = viewport.getRotationAngle();
-		signImgTransform = { x, y, size, rotation };
-	}
-
-	onMount(() => {
-		eruda.init();
+	function init() {
 		if (!dom) return;
 		editor = new Editor(dom, { localization: zh, wheelEventsEnabled: false, minZoom: 0.1 });
 
@@ -63,14 +46,11 @@
 		editor.getRootElement().style.backgroundColor = 'yellow';
 
 		updateSignMask();
+		updateSvgUrl();
 
-		dom.addEventListener('touchmove', () => {
-			updateSignMask();
-		});
-
-		dom.addEventListener('touchend', () => {
-			svgUrl = getSVGURL();
-		});
+		dom.addEventListener('touchmove', updateSignMask);
+		dom.addEventListener('touchend', updateSvgUrl);
+		dom.addEventListener('touchstart', updateSvgUrl);
 
 		editor.dispatch(
 			editor.setBackgroundStyle({
@@ -84,7 +64,24 @@
 		editor.addToolbar();
 
 		const penTools = editor.toolController.getMatchingTools(PenTool);
-		penTools.forEach((pen) => pen.setColor(Color4.red));
+		penTools.forEach((pen) => pen.setColor(Color4.fromString('#' + Math.floor(Math.random() * 16777215).toString(16))));
+
+		const eraserTools = editor.toolController.getMatchingTools(EraserTool);
+		eraserTools.forEach((eraser) => eraser.getModeValue().set(EraserMode.PartialStroke));
+	}
+
+	function updateSignMask() {
+		if (!editor) return;
+		const { viewport } = editor;
+		const { x, y } = viewport.canvasToScreen(Vec2.of(0, 0));
+		const size = CANVAS_SIZE / viewport.getSizeOfPixelOnCanvas();
+		const rotation = viewport.getRotationAngle();
+		signImgTransform = { x, y, size, rotation };
+	}
+
+	onMount(() => {
+		eruda.init();
+		init();
 	});
 </script>
 
@@ -111,7 +108,6 @@
 	enctype="multipart/form-data"
 	class="center-content pointer-events-none fixed bottom-0 w-screen flex-col"
 	use:enhance={() => {
-		svgUrl = getSVGURL();
 		return async ({ update, result }) => {
 			await update({ reset: false });
 		};
