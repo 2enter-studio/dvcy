@@ -6,22 +6,20 @@ type ThemeName = 'retro' | 'synthwave' | 'gruvbox';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-	content: ['./src/**/*.{html,js,svelte,ts,md}', '../../packages/ui/**/*.{html,js,svelte,ts,md}', './mdsvex.config.ts'],
+	content: ['./src/**/*.{html,js,svelte,ts,md}', '../../packages/ui/components/html,js,svelte,ts,md}', './mdsvex.config.ts'],
 	theme: {
 		extend: {}
 	},
 	plugins: [daisyui, typography],
 	daisyui: {
 		themes: [
-			'synthwave',
-			'retro',
 			{
-				gruvbox: {
-					primary: '#83a598',
+				light: {
+					primary: '#d16012',
 					secondary: '#d3869b',
 					accent: '#f38019',
 					neutral: '#928374',
-					'base-100': '#282828',
+					'base-100': '#eddea2',
 					info: '#83c07c',
 					success: '#b88b26',
 					warning: '#fabd2f',
