@@ -1,14 +1,13 @@
 import type { Action, Actions } from '@sveltejs/kit';
-import type { Locale } from '@/config';
 
 import { redirect } from '@sveltejs/kit';
 
-import { DEFAULT_LOCALE, LOCALES, SIGN_TYPES, type SignType } from '@/config';
+import { SIGN_TYPES, type SignType } from '@/config';
 import { pb } from '@/server/pb';
 
 let signType: SignType = 0;
 
-export const load = async ({ params }) => {
+export const load = async () => {
 	signType = (~~(signType + Math.random() * 2 + 1) % SIGN_TYPES.length) as SignType;
 	return { signType };
 };
