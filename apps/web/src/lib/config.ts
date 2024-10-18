@@ -1,5 +1,8 @@
 const SIGN_TYPES = [0, 1, 2, 3, 4] as const;
-type SignType = (typeof SIGN_TYPES)[number];
+const LOCALES = ['en', 'zh-tw'];
 
-export { SIGN_TYPES };
-export type { SignType };
+type SignType = (typeof SIGN_TYPES)[number];
+type Locale = (typeof SIGN_TYPES)[number];
+
+export { SIGN_TYPES, LOCALES };
+export type { SignType, Locale };
