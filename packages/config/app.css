@@ -1,4 +1,4 @@
-@import '@fontsource/fira-code';
+@import '@fontsource/noto-sans-jp';
 
 @tailwind base;
 @tailwind components;
@@ -23,7 +23,7 @@
 }
 
 html {
-	font-family: 'Fira Code', monospace;
+	font-family: 'Noto Sans JP', monospace;
 }
 
 ::selection {

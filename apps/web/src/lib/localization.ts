@@ -1,7 +1,14 @@
 import { defaultEditorLocalization } from 'js-draw';
 import type { EditorLocalization } from 'js-draw';
 
-const zh: EditorLocalization = {
+type ExpandedLocalization = EditorLocalization & {
+	upload: string;
+	confirm: string;
+};
+
+const zh: ExpandedLocalization = {
+	upload: '上傳',
+	confirm: '確定上傳?',
 	...defaultEditorLocalization,
 	help: '幫助',
 	helpHidden: '幫助已隱藏',
@@ -153,4 +160,12 @@ const zh: EditorLocalization = {
 	developerInformation: '開發者信息'
 };
 
-export { zh };
+const en: ExpandedLocalization = {
+	upload: 'upload',
+	confirm: 'Are you sure?',
+	...defaultEditorLocalization
+};
+
+const localizations = { en, 'zh-tw': zh };
+
+export { localizations };

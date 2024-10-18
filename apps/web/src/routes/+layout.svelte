@@ -5,8 +5,7 @@
 
 	import { PUBLIC_FA_KIT_URL } from '$env/static/public';
 
-	let { children, data } = $props();
-	console.log(data);
+	let { children } = $props();
 </script>
 
 <svelte:head>

@@ -5,11 +5,12 @@
 		"dev": "turbo run dev",
 		"lint": "turbo run lint",
 		"format": "prettier --write .",
-		"pb-typegen": "pocketbase-typegen --db apps/pb/pb_data/data.db --out packages/lib/pb/pb.types.ts",
+		"pb-typegen": "pocketbase-typegen --db apps/pb/pb_data/data.db --out packages/lib/pb/types.ts",
 		"new-svelte-app": "bun run ./scripts/new-svelte-app.ts"
 	},
 	"devDependencies": {
 		"@fontsource/fira-code": "^5.1.0",
+		"@fontsource/noto-sans-jp": "^5.1.0",
 		"@iconify/svelte": "^4.0.2",
 		"@sveltejs/adapter-node": "^5.2.8",
 		"@sveltejs/kit": "^2.7.1",

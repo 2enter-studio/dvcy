@@ -6,7 +6,7 @@ import type PocketBase from 'pocketbase'
 import type { RecordService } from 'pocketbase'
 
 export enum Collections {
-	Data = "data",
+	Paints = "paints",
 	Users = "users",
 }
 
@@ -34,8 +34,24 @@ export type AuthSystemFields<T = never> = {
 
 // Record types for each collection
 
-export type DataRecord = {
-	text?: string
+export enum PaintsTypeOptions {
+	"E0" = "0",
+	"E1" = "1",
+	"E2" = "2",
+	"E3" = "3",
+	"E4" = "4",
+}
+
+export enum PaintsSourceOptions {
+	"chiayiartmuseum" = "chiayiartmuseum",
+	"youtube" = "youtube",
+}
+export type PaintsRecord = {
+	draw_duration?: number
+	paint: string
+	source: PaintsSourceOptions
+	type: PaintsTypeOptions
+	user_agent?: string
 }
 
 export type UsersRecord = {
@@ -44,18 +60,18 @@ export type UsersRecord = {
 }
 
 // Response types include system fields and match responses from the PocketBase API
-export type DataResponse<Texpand = unknown> = Required<DataRecord> & BaseSystemFields<Texpand>
+export type PaintsResponse<Texpand = unknown> = Required<PaintsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
 
 export type CollectionRecords = {
-	data: DataRecord
+	paints: PaintsRecord
 	users: UsersRecord
 }
 
 export type CollectionResponses = {
-	data: DataResponse
+	paints: PaintsResponse
 	users: UsersResponse
 }
 
@@ -63,6 +79,6 @@ export type CollectionResponses = {
 // https://github.com/pocketbase/js-sdk#specify-typescript-definitions
 
 export type TypedPocketBase = PocketBase & {
-	collection(idOrName: 'data'): RecordService<DataResponse>
+	collection(idOrName: 'paints'): RecordService<PaintsResponse>
 	collection(idOrName: 'users'): RecordService<UsersResponse>
 }

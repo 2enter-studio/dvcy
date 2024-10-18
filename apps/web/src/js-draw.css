@@ -3,11 +3,19 @@
 }
 
 div[role='toolbar'] {
-	@apply fixed bottom-32 !important;
+	@apply fixed bottom-0 gap-5 bg-transparent *:bg-transparent !important;
+
+	.toolbar-action-row {
+		@apply justify-between px-2 !important;
+	}
+
+	.toolbar-tool-row {
+		@apply bg-primary py-4 !important;
+	}
 }
 
 .toolbar-edgemenu {
-	@apply relative bg-secondary !important;
+	@apply w-[95%] bg-secondary !important;
 }
 
 .toolbar-internalWidgetId--hand-tool-widget,
@@ -20,8 +28,8 @@ div[role='toolbar'] {
 	@apply rounded-md;
 }
 
-.checked {
-	@apply bg-secondary !important;
+.selected [role='switch'] {
+	@apply rounded-xl bg-black !important;
 }
 
 input[type='range'] {
