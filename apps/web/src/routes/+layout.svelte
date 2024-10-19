@@ -13,4 +13,5 @@
 		<script src={PUBLIC_FA_KIT_URL} crossorigin="anonymous"></script>
 	{/if}
 </svelte:head>
+
 {@render children()}
