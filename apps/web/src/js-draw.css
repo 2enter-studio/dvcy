@@ -28,8 +28,9 @@ div[role='toolbar'] {
 	@apply rounded-md;
 }
 
-.selected [role='switch'] {
-	@apply rounded-xl bg-black !important;
+.selected [role='switch'],
+.checked {
+	@apply rounded-xl bg-black p-1 shadow-inner shadow-white/40 !important;
 }
 
 input[type='range'] {
@@ -38,4 +39,8 @@ input[type='range'] {
 
 .pickColorInstructions {
 	@apply ml-10 bg-info px-2 text-sm text-info-content !important;
+}
+
+input, select {
+	@apply rounded-md pl-1 text-sm text-info-content !important;
 }
