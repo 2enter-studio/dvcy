@@ -33,3 +33,5 @@ const submit: Action = async ({ request, params, cookies }) => {
 };
 
 export const actions: Actions = { submit };
+
+export const ssr = false
