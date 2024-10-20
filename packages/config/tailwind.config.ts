@@ -13,6 +13,8 @@ export default {
 	plugins: [daisyui, typography],
 	daisyui: {
 		themes: [
+			'synthwave',
+			'retro',
 			{
 				light: {
 					primary: '#d16012',
@@ -20,6 +22,17 @@ export default {
 					accent: '#f38019',
 					neutral: '#928374',
 					'base-100': '#eddea2',
+					info: '#83c07c',
+					success: '#b88b26',
+					warning: '#fabd2f',
+					error: '#fb4934'
+				},
+				gruvbox: {
+					primary: '#83a598',
+					secondary: '#d3869b',
+					accent: '#f38019',
+					neutral: '#928374',
+					'base-100': '#282828',
 					info: '#83c07c',
 					success: '#b88b26',
 					warning: '#fabd2f',
