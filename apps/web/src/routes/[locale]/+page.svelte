@@ -10,7 +10,7 @@
 	import Fa from 'svelte-fa';
 
 	import { localizations } from '@/localization';
-	import { ROUTES, SIGN_SIZE, SIGN_TYPES, type SignType } from '@/config';
+	import { ROUTES, CANVAS_SIZE, SIGN_TYPES, type SignType } from '@/config';
 	import { TimerState } from '@/states';
 
 	const { data } = $props();
@@ -19,7 +19,7 @@
 	const anotherLocale = ROUTES.filter((r) => r.locale !== locale)[0];
 
 	const localization = localizations[locale];
-	const CANVAS_SIZE = 500;
+	const EDITOR_CANVAS_SIZE = 500;
 
 	let showSign = $state(true);
 	let dom = $state<HTMLDivElement>();
@@ -45,7 +45,7 @@
 
 	function updateResultUrl() {
 		if (!editor) return;
-		resultUrl = editor.toDataURL('image/jpeg', Vec2.of(SIGN_SIZE, SIGN_SIZE));
+		resultUrl = editor.toDataURL('image/jpeg', Vec2.of(CANVAS_SIZE, CANVAS_SIZE));
 	}
 
 	function init() {
@@ -114,7 +114,7 @@
 		if (!editor) return;
 		const { viewport } = editor;
 		const { x, y } = viewport.canvasToScreen(Vec2.of(0, 0));
-		const size = CANVAS_SIZE / viewport.getSizeOfPixelOnCanvas();
+		const size = EDITOR_CANVAS_SIZE / viewport.getSizeOfPixelOnCanvas();
 		const rotation = viewport.getRotationAngle();
 		signImgTransform = { x, y, size, rotation };
 	}
