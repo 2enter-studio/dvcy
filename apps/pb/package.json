@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": "true",
 	"scripts": {
-		"dev": "pocketbase serve --dev"
+		"dev": "pocketbase serve --http=172.20.10.2:8090 --dev"
 	},
 	"exports": {
 		"types": "./pb_data/types.d.ts"
