@@ -8,15 +8,18 @@
 	import { onMount } from 'svelte';
 
 	import { localizations } from '@/localization';
-	import { SIGN_TYPES, type SignType } from '@/config';
+	import { ROUTES, SIGN_SIZE, SIGN_TYPES, type SignType } from '@/config';
 	import { TimerState } from '@/states';
 
 	const { data } = $props();
 	const { locale } = data;
 
+	const anotherLocale = ROUTES.filter((r) => r.locale !== locale)[0];
+
 	const localization = localizations[locale];
 	const CANVAS_SIZE = 500;
 
+	let showSign = $state(true);
 	let dom = $state<HTMLDivElement>();
 	let submitBtn = $state<HTMLButtonElement>();
 	let editor = $state<Editor>();
@@ -40,25 +43,7 @@
 
 	function updateResultUrl() {
 		if (!editor) return;
-		resultUrl = editor.toDataURL('image/jpeg', Vec2.of(1000, 1000));
-		return;
-		// const serializer = new XMLSerializer();
-		// const svg = editor.toSVG();
-		// let source = serializer.serializeToString(svg);
-		//
-		// if (!source.match(/^<svg[^>]+xmlns="http:\/\/www\.w3\.org\/2000\/svg"/)) {
-		// 	source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-		// }
-		// if (!source.match(/^<svg[^>]+"http:\/\/www\.w3\.org\/1999\/xlink"/)) {
-		// 	source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
-		// }
-		//
-		// //add xml declaration
-		// source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
-		// // svgUrl = encodeURIComponent(source);
-		//
-		// // //convert svg source to URI data scheme.
-		// svgUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
+		resultUrl = editor.toDataURL('image/jpeg', Vec2.of(SIGN_SIZE, SIGN_SIZE));
 	}
 
 	function init() {
@@ -147,8 +132,8 @@
 		{@const { x, y, size, rotation } = signImgTransform}
 		<div
 			class="pointer-events-none fixed border-4 border-solid border-base-100 bg-cover bg-center bg-no-repeat"
-			style:background-image="url({signImgPath})"
-			style:outline="solid 10000px oklch(var(--b1))"
+			style:background-image={showSign ? `url(${signImgPath})` : ''}
+			style:outline="solid 4269px oklch(var(--b1))"
 			style:left="{x}px"
 			style:top="{y}px"
 			style:width="{size}px"
@@ -157,10 +142,13 @@
 			style:transform-origin="top left"
 		></div>
 	{/if}
+
 	<div class="full-screen pointer-events-none flex flex-col justify-between px-3 pb-6 text-6xl">
-		<div class="flex w-full justify-between">
-			<button>{timer?.count ?? 0}</button>
-			<button>{''}</button>
+		<div class="mt-3 flex w-full items-center justify-between *:pointer-events-auto">
+			<a class="text-xl" data-sveltekit-reload href="/{anotherLocale.locale}">{anotherLocale.name.slice(0, 2).toUpperCase()}</a>
+			<button aria-label="button" onclick={() => (showSign = !showSign)} class="center-content text-2xl">
+				<i class="fa-solid {showSign ? 'fa-eye-slash' : 'fa-eye'}"></i>
+			</button>
 		</div>
 		<div class="flex w-full justify-between *:pointer-events-auto">
 			<button aria-label="button" class="h-fit w-fit text-primary" onclick={() => signType--}>
@@ -184,7 +172,7 @@
 		if (!confirm(`${localization.confirm}?`)) cancel();
 		return async ({ update }) => {
 			timer?.stop();
-			await update({ reset: false });
+			await update();
 		};
 	}}
 >
@@ -197,7 +185,7 @@
 <!--	<img-->
 <!--		src="/images/signs/0{signType + 1}.png"-->
 <!--		alt="result"-->
-<!--		style:background-image="url('{svgUrl}')"-->
+<!--		style:background-image="url('{resultUrl}')"-->
 <!--		class="pointer-events-none fixed left-0 top-0 max-h-[30vw] max-w-[30vw] bg-cover bg-center bg-no-repeat"-->
 <!--	/>-->
 <!--</div>-->

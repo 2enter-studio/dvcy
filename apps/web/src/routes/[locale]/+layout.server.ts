@@ -3,6 +3,6 @@ import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ params, cookies }) => {
 	let locale = params.locale as Locale;
-	if (!locale || !LOCALES.includes(locale)) redirect(301, `/${DEFAULT_LOCALE}`);
+	if (!locale || !LOCALES.includes(locale)) redirect(308, `/${DEFAULT_LOCALE}`);
 	return { locale, source: cookies.get('source') ?? 'unknown' };
 };
