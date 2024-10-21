@@ -4,11 +4,15 @@ import type { EditorLocalization } from 'js-draw';
 type ExpandedLocalization = EditorLocalization & {
 	upload: string;
 	confirm: string;
+	downloadYourSign: string;
+	back: string;
 };
 
 const zh: ExpandedLocalization = {
 	upload: '上傳',
 	confirm: '確定上傳?',
+	downloadYourSign: '下載你的招牌！',
+	back: '回上頁',
 	...defaultEditorLocalization,
 	help: '幫助',
 	helpHidden: '幫助已隱藏',
@@ -163,6 +167,8 @@ const zh: ExpandedLocalization = {
 const en: ExpandedLocalization = {
 	upload: 'upload',
 	confirm: 'Are you sure?',
+	downloadYourSign: 'Download your sign!',
+	back: 'Back to last page',
 	...defaultEditorLocalization
 };
 
