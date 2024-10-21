@@ -1,11 +1,14 @@
-import fs from 'fs-extra';
+import { SignImage } from '@repo/lib/pb';
+import { pb } from '@/server/pb';
 
 export const GET = async ({ params }) => {
 	const { id } = params;
-	const image = fs.readFileSync(`./images/${id}.jpg`);
-	return new Response(image, {
+	const image = new SignImage(pb, id);
+	const buffer = await image.getBuffer();
+
+	return new Response(buffer, {
 		headers: {
-			'content-type': 'image/png'
+			'content-type': 'image/jpeg'
 		}
 	});
 };
