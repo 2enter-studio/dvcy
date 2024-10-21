@@ -6,6 +6,8 @@
 
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
+	import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+	import Fa from 'svelte-fa';
 
 	import { localizations } from '@/localization';
 	import { ROUTES, SIGN_SIZE, SIGN_TYPES, type SignType } from '@/config';
@@ -147,7 +149,7 @@
 		<div class="mt-3 flex w-full items-center justify-between *:pointer-events-auto">
 			<a class="text-xl" data-sveltekit-reload href="/{anotherLocale.locale}">{anotherLocale.name.slice(0, 2).toUpperCase()}</a>
 			<button aria-label="button" onclick={() => (showSign = !showSign)} class="center-content text-2xl">
-				<i class="fa-solid {showSign ? 'fa-eye-slash' : 'fa-eye'}"></i>
+				<Fa icon={showSign ? faEyeSlash : faEye}></Fa>
 			</button>
 		</div>
 		<div class="flex w-full justify-between *:pointer-events-auto">
