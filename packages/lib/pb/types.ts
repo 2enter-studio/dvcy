@@ -45,10 +45,18 @@ export enum PaintsTypeOptions {
 export enum PaintsSourceOptions {
 	"chiayiartmuseum" = "chiayiartmuseum",
 	"youtube" = "youtube",
+	"unknown" = "unknown",
+}
+
+export enum PaintsLocaleOptions {
+	"zh-tw" = "zh-tw",
+	"en" = "en",
 }
 export type PaintsRecord = {
 	draw_duration?: number
+	locale: PaintsLocaleOptions
 	paint: string
+	sign: string
 	source: PaintsSourceOptions
 	type: PaintsTypeOptions
 	user_agent?: string
